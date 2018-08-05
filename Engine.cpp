@@ -32,26 +32,19 @@ void displaytext(const char * b, short a, SDL_Renderer * sr, int x, int y)
 		// handle error
 	}
 	std::string text = b + IntToStringa(a);
-
 	SDL_Color White = { 255, 255, 255 };  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
       surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-
 	 Message = SDL_CreateTextureFromSurface(sr, surfaceMessage); //now you can convert it into a texture
-
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate 
 	Message_rect.y = y; // controls the rect's y coordinte
 	Message_rect.w = surfaceMessage->w; // controls the width of the rect
-	Message_rect.h = surfaceMessage->h; // controls the height of the rect
-						  //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
-						  //Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
+	Message_rect.h = surfaceMessage->h; // controls the height of the rect					  //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance					  //Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
 	SDL_RenderCopy(sr, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
-
 	TTF_CloseFont(Sans);
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);													  //Don't forget too free your surface and texture
 }
-
 void displaytext(const char * a, SDL_Renderer * sr, int x, int y)
 {
 	if (TTF_Init() == -1)
@@ -66,7 +59,6 @@ void displaytext(const char * a, SDL_Renderer * sr, int x, int y)
 	}
 	SDL_Color White = { 255, 255, 255 };  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
 	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, a, White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(sr, surfaceMessage); //now you can convert it into a texture
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate 
@@ -75,9 +67,7 @@ void displaytext(const char * a, SDL_Renderer * sr, int x, int y)
 	Message_rect.h = surfaceMessage->h; // controls the height of the rect
 						 //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
 						 //Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
-
-	SDL_RenderCopy(sr, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
-													  //Don't forget too free your surface and texture
+	SDL_RenderCopy(sr, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture											  //Don't forget too free your surface and texture
 	 /// memory leak problemc !!!!!!!!!
 	TTF_CloseFont(Sans);
 	SDL_FreeSurface(surfaceMessage);
@@ -194,9 +184,7 @@ start:
 					kayit << obv[i].objectrect.h << endl;
 					kayit << obv[i].tag << endl;
 				}
-
 				kayit.close();
-
 				goto start;
 			} break;
 			case 6: // loado
@@ -205,10 +193,8 @@ start:
 				yukle.open("objects.fceobject");
 				yukle >> a;
 				obv.resize(a);
-
 				for (int i = 0; i < obv.size(); i++)
 				{
-
 					yukle >> obv[i].fname >> obv[i].objectrect.x >> obv[i].objectrect.y >> obv[i].objectrect.w >> obv[i].objectrect.h >> obv[i].tag;
 					obv[i].init(true,false,sr,true);
 				}
@@ -217,7 +203,6 @@ start:
 			}break;
 			case 7: // loadc
 			{
-
 				ifstream yukle;
 				yukle.open("characters.fceobject");
 				yukle >> b;
@@ -233,13 +218,11 @@ start:
 			case 8: // savec
 			{
 				b = chv.size();
-				
 				ofstream kayit;
 				kayit.open("characters.fcechr");
 				kayit << a << endl;
 				for (int i = 0; i < chv.size(); i++)
 				{
-
 					kayit << chv[i].fname << endl;
 					kayit << chv[i].objectrect.x << endl;
 					kayit << chv[i].objectrect.y << endl;
@@ -276,7 +259,6 @@ start:
 
 				for (int i = 0; i < obv.size(); i++)
 				{
-
 					if (obv[i].tag == gtag)
 					{
 						log(" new object x")
@@ -284,30 +266,23 @@ start:
 						log(" new object y")
 							get(obv[i].objectrect.y);
 						break;
-
-
 					}
-
 				}
 			} break;
 			case 13: // change player position
-			{
-						
+			{			
 						log(" new player x")
 							get(player.objectrect.x);
 						log(" new player y")
 							get(player.objectrect.y);
-			
 			} break;
 			case 14: // change object wh
 			{
 				short vtag;
 				log("object tag")
 					get(vtag);
-
 				for (int i = 0; i < obv.size(); i++)
 				{
-
 					if (obv[i].tag == vtag)
 					{
 						log(" new object w")
@@ -315,43 +290,29 @@ start:
 						log(" new object h")
 							get(obv[i].objectrect.h);
 						break;
-
-						
-
-
 					}
-
 				}
-
 			} break;
 			default:
 				break;
 			}
-
 		} break;
 		case SDLK_p:
 		{
 			editoron = false;
-
-
 		}break;
 		case SDLK_h:
 		{
 			showcol = false;
-
 		}break;
 		case SDLK_j:
 		{
-			
 				showcol = true;
 		}break;
-
-
 		}
 		break;
 	default:
 		break;
-	}
 	
 	SDL_RenderClear(sr); /// render
 	for (int i = 0; i < obv.size(); i++)
@@ -359,15 +320,12 @@ start:
 		if (showcol)
 		{
 			SDL_SetRenderDrawColor(sr, 0, 0, 255, 255);
-
 			// Render our "player"
 			SDL_RenderFillRect(sr, &obv[i].objectrect);
-
 			// Change color to green
 			SDL_SetRenderDrawColor(sr, 60, 90, 34, 1);
 		}
 		obv[i].render(sr,  angle);
-
 	}
 	for (int i = 0; i < chv.size(); i++)
 	{
@@ -375,7 +333,6 @@ start:
 	}
 	if (player.inited == true)
 	{
-
 		player.render(sr, 0);
 	}
 	SDL_GetMouseState(&xmouse, &ymouse);
@@ -391,7 +348,6 @@ start:
 	}
 	SDL_RenderPresent(sr); /// render end
 }
-
 void Engine::playmode()
 {
 	SDL_PollEvent(&se);
@@ -492,16 +448,12 @@ bool Engine::initgui()
 	}
 	return 1;
 }
-
 Engine::Engine()
 {
 }
-
-
 Engine::~Engine()
 {	
 }
-
 bool Engine::init()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -517,7 +469,6 @@ bool Engine::init()
 		return true;
 	}
 }
-
 bool Engine::render()
 {
 	SDL_RenderClear(sr);
@@ -526,24 +477,5 @@ bool Engine::render()
 }
 bool Engine::handleevent()
 {
-
-	/*SDL_PollEvent(&se);
-	switch (se.type)
-	{
-	case SDL_QUIT:
-	{
-
-		eisrunning = false;
-	}
-	break;
-	case SDLK_c:
-	{
-		return true;
-
-	}
-	break;
-	default:
-		break;
-	}*/
 	return true;
 }
