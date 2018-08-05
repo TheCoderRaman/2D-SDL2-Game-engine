@@ -14,7 +14,6 @@
    limitations under the License.
 ***********************************************************************/
 #include "Engine.h"
-
 SDL_Surface* surfaceMessage;
 TTF_Font* Sans;
 SDL_Texture* Message;
@@ -25,13 +24,8 @@ std::string IntToStringa(short n)
 	sstream << n;
 	return sstream.str();
 }
-
-
 void displaytext(const char * b, short a, SDL_Renderer * sr, int x, int y)
 {
-
-
-
 	 Sans = TTF_OpenFont("FreeSans.ttf", 18); //this opens a font style and sets a size
 	if (!Sans) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -49,11 +43,8 @@ void displaytext(const char * b, short a, SDL_Renderer * sr, int x, int y)
 	Message_rect.y = y; // controls the rect's y coordinte
 	Message_rect.w = surfaceMessage->w; // controls the width of the rect
 	Message_rect.h = surfaceMessage->h; // controls the height of the rect
-
 						  //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
-
 						  //Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
-
 	SDL_RenderCopy(sr, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
 
 	TTF_CloseFont(Sans);
@@ -68,46 +59,31 @@ void displaytext(const char * a, SDL_Renderer * sr, int x, int y)
 		printf("TTF_Init: %s\n", TTF_GetError());
 		system("pause");
 	}
-
-
 	TTF_Font* Sans = TTF_OpenFont("FreeSans.ttf", 18); //this opens a font style and sets a size
 	if (!Sans) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		// handle error
 	}
-
 	SDL_Color White = { 255, 255, 255 };  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
-
 	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, a, White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
 
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(sr, surfaceMessage); //now you can convert it into a texture
-
-	
-
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate 
 	Message_rect.y = y; // controls the rect's y coordinte
 	Message_rect.w = surfaceMessage->w; // controls the width of the rect
 	Message_rect.h = surfaceMessage->h; // controls the height of the rect
-
 						 //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
-
 						 //Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
 
 	SDL_RenderCopy(sr, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
-
 													  //Don't forget too free your surface and texture
 	 /// memory leak problemc !!!!!!!!!
 	TTF_CloseFont(Sans);
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 }
-
-
-
 short answer;
-
-
 short a;
 short b;
 void Engine::editormode()
@@ -117,25 +93,19 @@ void Engine::editormode()
 	bool showins = true;
 	bool showcol = true;
 start:
-
-	
 	SDL_PollEvent(&se);
 	switch (se.type)
 	{
 	case SDL_QUIT:
 	{
-
 		eisrunning = false;
 	}
 	break;
-
-
 	case SDL_KEYDOWN:
 		switch (se.key.keysym.sym)
 		{
 		case SDLK_e:
 		{
-			
 			log("3-create new object\n1-create player\n2- crete npc\n5-Save objects\n6-Load objects\n7-Load characters\n8-Save Characters\n10-Save player\n11-Load player\n12-change object pos\n13-Change player pos\n14-Change object size");
 			get(answer);
 			switch (answer)
@@ -158,15 +128,12 @@ start:
 				log("tag");
 				get(new_object.tag);
 				log("finised !")
-					
 					new_object.init(true, false, sr, true);
-			
 				obv.push_back(new_object);
 			
 			} break;
 			case 2: // npc
 			{
-
 				Character new_object;
 				log("Texture name");
 				get(new_object.fname);
@@ -190,8 +157,6 @@ start:
 			} break;
 			case 1: // player
 			{
-
-				
 				log("Texture name");
 				get(player.fname);
 				log("x");
@@ -204,25 +169,20 @@ start:
 				get(player.tag);
 				system("cls");
 				log("finised !")
-
 					player.objectrect.w = 256;
 				player.objectrect.h = 256;
 					player.init(true, false, sr, true);
 				player.initcharacter();
 				player.inited = true;
-
 				//chv.push_back(player);
 			} break;
 			case 9: // exit
 			{
-
 				goto start;
-
 			}break;
 			case 5: // saveo
 			{
 				 a = obv.size();
-
 				ofstream kayit;
 				kayit.open("objects.fceobject");
 				kayit << a << endl;
@@ -235,12 +195,8 @@ start:
 					kayit << obv[i].objectrect.w << endl;
 					kayit << obv[i].objectrect.h << endl;
 					kayit << obv[i].tag << endl;
-
 				}
 
-
-				
-				
 				kayit.close();
 
 				goto start;
