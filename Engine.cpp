@@ -403,10 +403,6 @@ start:
 		{
 			
 				showcol = true;
-			
-			
-
-
 		}break;
 
 
@@ -417,10 +413,6 @@ start:
 	}
 	
 	SDL_RenderClear(sr); /// render
-
-
-	
-
 	for (int i = 0; i < obv.size(); i++)
 	{
 		if (showcol)
@@ -433,10 +425,6 @@ start:
 			// Change color to green
 			SDL_SetRenderDrawColor(sr, 60, 90, 34, 1);
 		}
-
-		
-	
-
 		obv[i].render(sr,  angle);
 
 	}
@@ -448,8 +436,6 @@ start:
 	{
 
 		player.render(sr, 0);
-
-
 	}
 	SDL_GetMouseState(&xmouse, &ymouse);
 	 
@@ -461,15 +447,9 @@ start:
 	if (showins)
 	{
 		/// show ins here
-		displaytext("Press E key to open edtior mode", sr, 600, 150);
-		
+		displaytext("Press E key to open edtior mode", sr, 600, 150);	
 	}
-
-
 	SDL_RenderPresent(sr); /// render end
-
-
-
 }
 
 void Engine::playmode()
@@ -480,14 +460,12 @@ void Engine::playmode()
 	{
 	case SDL_QUIT:
 	{
-
 		eisrunning = false;
 	}
 	break;
 	case SDLK_f:
 	{
 		editoron = true;
-
 	} break;
 
 	case SDL_KEYDOWN:
@@ -501,9 +479,6 @@ void Engine::playmode()
 			{
 				player.move(0, -20);
 			}
-
-
-
 		}  break;
 
 		case SDLK_a:
@@ -512,9 +487,6 @@ void Engine::playmode()
 			{
 				player.move(-20, 0);
 			}
-
-
-
 		}  break;
 		case SDLK_d:
 		{
@@ -522,8 +494,6 @@ void Engine::playmode()
 			{
 				player.move(20, 0);
 			}
-
-
 		}    break;
 		case SDLK_s:
 		{
@@ -531,8 +501,6 @@ void Engine::playmode()
 			{
 				player.move(0, 20);
 			}
-
-
 		}  break;
 		case SDLK_k:
 		{
@@ -543,14 +511,10 @@ void Engine::playmode()
 		{
 			if (player.alive == true)
 			{
-
 				player.attack(20);
 			}
 
 		} break;
-
-
-
 		}
 		break;
 	default:
@@ -581,8 +545,6 @@ void Engine::playmode()
 	for (int i = 0; i < obv.size(); i++)
 	{
 		obv[i].render(sr,  angle);
-		
-		
 	}
 	for (int i = 0; i < chv.size(); i++)
 	{
@@ -593,22 +555,6 @@ void Engine::playmode()
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------------
 bool Engine::initgui()
 {
@@ -626,9 +572,7 @@ Engine::Engine()
 
 
 Engine::~Engine()
-{
-	
-	
+{	
 }
 
 bool Engine::init()
@@ -694,6 +638,3 @@ bool Engine::handleevent()
 	}*/
 	return true;
 }
-
-
-
