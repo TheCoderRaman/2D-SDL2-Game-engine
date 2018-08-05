@@ -130,7 +130,6 @@ start:
 				log("finised !")
 					new_object.init(true, false, sr, true);
 				obv.push_back(new_object);
-			
 			} break;
 			case 2: // npc
 			{
@@ -188,7 +187,6 @@ start:
 				kayit << a << endl;
 				for (int i = 0; i < obv.size(); i++)
 				{
-					
 					kayit << obv[i].fname<< endl;
 					kayit << obv[i].objectrect.x << endl;
 					kayit << obv[i].objectrect.y << endl;
@@ -203,7 +201,6 @@ start:
 			} break;
 			case 6: // loado
 			{
-				
 				ifstream yukle;
 				yukle.open("objects.fceobject");
 				yukle >> a;
@@ -215,9 +212,7 @@ start:
 					yukle >> obv[i].fname >> obv[i].objectrect.x >> obv[i].objectrect.y >> obv[i].objectrect.w >> obv[i].objectrect.h >> obv[i].tag;
 					obv[i].init(true,false,sr,true);
 				}
-
 				yukle.close();
-
 				goto start;
 			}break;
 			case 7: // loadc
@@ -229,13 +224,10 @@ start:
 				chv.resize(b);
 				for (int i = 0; i < chv.size(); i++)
 				{
-
 					yukle >> chv[i].fname >> chv[i].objectrect.x >> chv[i].objectrect.y >> chv[i].tag;
 					chv[i].init(true, false, sr, true);
 				}
-
 				yukle.close();
-
 				goto start;
 			}break;
 			case 8: // savec
@@ -252,19 +244,12 @@ start:
 					kayit << chv[i].objectrect.x << endl;
 					kayit << chv[i].objectrect.y << endl;
 					kayit << chv[i].tag << endl;
-
 				}
-
-
-
-
 				kayit.close();
-
 				goto start;
 			} break;
 			case 10: // save player
 			{
-
 				ofstream kayit;
 				kayit.open("player.fceplr");
 				kayit << player.fname << endl;
@@ -394,7 +379,6 @@ start:
 		player.render(sr, 0);
 	}
 	SDL_GetMouseState(&xmouse, &ymouse);
-	 
 	/// cordinate is where top left starts
 	displaytext("current inited object count :", obv.size(), sr, 10, 10);
 	displaytext("current inited character count :", chv.size(), sr, 10, 30);
@@ -410,7 +394,6 @@ start:
 
 void Engine::playmode()
 {
-	
 	SDL_PollEvent(&se);
 	switch (se.type)
 	{
@@ -423,12 +406,9 @@ void Engine::playmode()
 	{
 		editoron = true;
 	} break;
-
 	case SDL_KEYDOWN:
 		switch (se.key.keysym.sym)
 		{
-
-
 		case SDLK_w:
 		{
 			if (player.alive == true)
@@ -436,7 +416,6 @@ void Engine::playmode()
 				player.move(0, -20);
 			}
 		}  break;
-
 		case SDLK_a:
 		{
 			if (player.alive == true)
@@ -461,7 +440,6 @@ void Engine::playmode()
 		case SDLK_k:
 		{
 			player.alive = false;
-
 		} break;
 		case SDLK_SPACE:
 		{
@@ -469,19 +447,15 @@ void Engine::playmode()
 			{
 				player.attack(20);
 			}
-
 		} break;
 		}
 		break;
 	default:
 		break;
 	}
-
 	//sword.objectrect.x = player.objectrect.x + 115;
 	//	sword.objectrect.y = player.objectrect.y + 85;
-
 	SDL_RenderClear(sr); /// render jobs
-
 	player.displaytext("Stamina", player.stamina, sr, 128, 128);
 	player.displaytext("Health", player.health, sr, 128, 30);
 	if (player.alive)
@@ -506,10 +480,7 @@ void Engine::playmode()
 	{
 		chv[i].render(sr,  angle);
 	}
-
 	SDL_RenderPresent(sr); /// render jobs ends
-
-
 }
 //---------------------------------------------------------------------
 bool Engine::initgui()
@@ -537,9 +508,6 @@ bool Engine::init()
 	sw = SDL_CreateWindow("Staby Stab", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 700, SDL_WINDOW_SHOWN);
 	sr = SDL_CreateRenderer(sw, -1, 0);
 	SDL_SetRenderDrawColor(sr, 60, 90, 34, 1);
-
-	
-
 	if (sw == NULL && sr == NULL)
 	{
 		return false;
@@ -548,29 +516,14 @@ bool Engine::init()
 	{
 		return true;
 	}
-	
-
 }
 
 bool Engine::render()
 {
-
-	// render
-
-
-
-
-
 	SDL_RenderClear(sr);
-
-	
-
 	SDL_RenderPresent(sr);
-
-
 	return false;
 }
-
 bool Engine::handleevent()
 {
 
