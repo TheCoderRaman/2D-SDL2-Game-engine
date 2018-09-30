@@ -83,7 +83,7 @@ void Engine::editormode()
 	bool showins = true;
 	bool showcol = true;
 start:
-	SDL_PollEvent(&se);
+	SDL_PollEvent(&se); // event loop
 	switch (se.type)
 	{
 	case SDL_QUIT:
@@ -94,7 +94,7 @@ start:
 	case SDL_KEYDOWN:
 		switch (se.key.keysym.sym)
 		{
-		case SDLK_e:
+		case SDLK_e: // when they opened editor window
 		{
 			log("3-create new object\n1-create player\n2- crete npc\n5-Save objects\n6-Load objects\n7-Load characters\n8-Save Characters\n10-Save player\n11-Load player\n12-change object pos\n13-Change player pos\n14-Change object size");
 			get(answer);
@@ -301,7 +301,7 @@ start:
 		{
 			editoron = false;
 		}break;
-		case SDLK_h:
+		case SDLK_h: // show colliders or not
 		{
 			showcol = false;
 		}break;
@@ -327,7 +327,7 @@ start:
 		}
 		obv[i].render(sr,  angle);
 	}
-	for (int i = 0; i < chv.size(); i++)
+	for (int i = 0; i < chv.size(); i++) // character vector 
 	{
 		chv[i].render(sr, angle);
 	}
@@ -358,14 +358,14 @@ void Engine::playmode()
 		eisrunning = false;
 	}
 	break;
-	case SDLK_f:
+	case SDLK_f: // open play mode
 	{
 		editoron = true;
 	} break;
 	case SDL_KEYDOWN:
 		switch (se.key.keysym.sym)
 		{
-		case SDLK_w:
+		case SDLK_w: // moslty movement
 		{
 			if (player.alive == true)
 			{
@@ -475,7 +475,7 @@ bool Engine::render()
 	SDL_RenderPresent(sr);
 	return false;
 }
-bool Engine::handleevent()
+bool Engine::handleevent() // cancelled
 {
 	return true;
 }
