@@ -48,7 +48,7 @@ void Character::attack(int x)
 	if (stamina >= 10)
 	{
 		objectrect.x += x;
-
+// go right and left again
 
 		objectrect.x -= x;
 		stamina -= 10;
