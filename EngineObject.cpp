@@ -1,18 +1,3 @@
-/*******************************************************************
-   Copyright 2018 Mehmet ÖZGÜN
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-***********************************************************************/
 #include "EngineObject.h"
 
 #include <string>
@@ -143,8 +128,8 @@ void EngineObject::displaytext(const char * a, SDL_Renderer * sr, int x, int y)
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate 
 	Message_rect.y = y; // controls the rect's y coordinte
-	Message_rect.w = 100; // controls the width of the rect
-	Message_rect.h = 70; // controls the height of the rect
+	Message_rect.w = surfaceMessage->w;  // controls the width of the rect
+	Message_rect.h = surfaceMessage->h; // controls the height of the rect
 
 						  //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
 
@@ -177,8 +162,8 @@ void EngineObject::displaytext(const char * b,short a, SDL_Renderer * sr, int x,
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate 
 	Message_rect.y = y; // controls the rect's y coordinte
-	Message_rect.w = surfaceMessage->h; // controls the width of the rect
-	Message_rect.h = surfaceMessage->w; // controls the height of the rect
+	Message_rect.w = surfaceMessage->w; // controls the width of the rect
+	Message_rect.h = surfaceMessage->h; // controls the height of the rect
 
 						  //Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understance
 
