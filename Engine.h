@@ -19,7 +19,7 @@ public:
 	vector<EngineObject> obv;
 	vector<Character> chv;
 	bool editoron = true;
-	//EngineObject newobject;
+	
 	SDL_Event se;
 
 	Sound s;
@@ -34,11 +34,10 @@ public:
 
 	bool init();
 	bool render();
-
+	bool handleevent();
 	void playmode();
 	void editormode();
 	bool initgui();
-	void setup();
 };
 
 

@@ -32,17 +32,16 @@ int main(int argc, char* args[])
 	player.objectrect.x = 12;
 	player.objectrect.y = -12;*/
 	
-	
-	e.setup();
-	
+	e.s.init();
+	e.s.play();
 	while (e.eisrunning)
 	{
 
-		if (e.editoron == true)
+		if (e.editoron)
 		{
 			e.editormode();
 		}
-		else if (e.editoron == false)
+		else
 		{
 			e.playmode();
 		}

@@ -127,8 +127,7 @@ start:
 			{
 			case 3: // object 
 			{
-				
-			/*	EngineObject new_object;
+				EngineObject new_object;
 				log("Texture name");
 				get(new_object.fname);
 				log("x");
@@ -148,34 +147,7 @@ start:
 					new_object.init(true, false, sr, true);
 			
 				obv.push_back(new_object);
-			*/
-				ifstream yukle;
-				string t;
-				log("Object Script name:");
-				get(t);
-				yukle.open(t+".fcescript");
-				EngineObject new_object;
-				yukle >> t;
-				if (t == "object")
-				{
-					yukle >> new_object.fname >> new_object.objectrect.x >> new_object.objectrect.y >> new_object.objectrect.w >> new_object.objectrect.h >> new_object.tag;
-					new_object.init(true, false, sr, true);
-					obv.push_back(new_object);
-				}
-				else
-				{
-					log("ERROR: Script is not an object script!");
-				}
-				
-		
-				/*Texture name
-					x
-					y
-					w
-					h
-					tag*/
 			
-
 			} break;
 			case 2: // npc
 			{
@@ -449,7 +421,7 @@ start:
 
 		
 	
-		//newobject.render(sr, 0);
+
 		obv[i].render(sr,  angle);
 
 	}
@@ -487,7 +459,7 @@ start:
 
 void Engine::playmode()
 {
-
+	
 	SDL_PollEvent(&se);
 	switch (se.type)
 	{
@@ -497,7 +469,11 @@ void Engine::playmode()
 		eisrunning = false;
 	}
 	break;
+	case SDLK_f:
+	{
+		editoron = true;
 
+	} break;
 
 	case SDL_KEYDOWN:
 		switch (se.key.keysym.sym)
@@ -511,15 +487,9 @@ void Engine::playmode()
 				player.move(0, -20);
 			}
 
-		} break;
-
-		case SDLK_e:
-		{
-			editoron = true;
-
-		} break;
 
 
+		}  break;
 
 		case SDLK_a:
 		{
@@ -568,46 +538,46 @@ void Engine::playmode()
 
 		}
 		break;
-		default:
-			break;
-		}
-
-		//sword.objectrect.x = player.objectrect.x + 115;
-		//	sword.objectrect.y = player.objectrect.y + 85;
-
-		SDL_RenderClear(sr); /// render jobs
-
-		player.displaytext("Stamina: ", player.stamina, sr, 128, 128);
-		player.displaytext("Health: ", player.health, sr, 128, 30);
-		if (player.alive)
-		{
-			player.render(sr, 0);
-			//sword.render(sr, 256, 256, 90);
-		}
-		if (!player.alive && a == 0)
-		{
-			player.changetexture(sr, "dedplayer.png");
-			a++;
-		}
-		if (!player.alive)
-		{
-			player.render(sr, 0);
-		}
-		for (int i = 0; i < obv.size(); i++)
-		{
-			obv[i].render(sr, angle);
-
-
-		}
-		for (int i = 0; i < chv.size(); i++)
-		{
-			chv[i].render(sr, angle);
-		}
-
-		SDL_RenderPresent(sr); /// render jobs ends
-
-
+	default:
+		break;
 	}
+
+	//sword.objectrect.x = player.objectrect.x + 115;
+	//	sword.objectrect.y = player.objectrect.y + 85;
+
+	SDL_RenderClear(sr); /// render jobs
+
+	player.displaytext("Stamina: ", player.stamina, sr, 128, 128);
+	player.displaytext("Health: ", player.health, sr, 128, 30);
+	if (player.alive)
+	{
+		player.render(sr, 0);
+		//sword.render(sr, 256, 256, 90);
+	}
+	if (!player.alive && a == 0)
+	{
+		player.changetexture(sr, "dedplayer.png");
+		a++;
+	}
+	if (!player.alive)
+	{
+		player.render(sr, 0);
+	}
+	for (int i = 0; i < obv.size(); i++)
+	{
+		obv[i].render(sr,  angle);
+		
+		
+	}
+	for (int i = 0; i < chv.size(); i++)
+	{
+		chv[i].render(sr,  angle);
+	}
+
+	SDL_RenderPresent(sr); /// render jobs ends
+
+
+}
 
 
 
@@ -633,55 +603,6 @@ bool Engine::initgui()
 		system("pause");
 	}
 	return 1;
-}
-
-void Engine::setup()
-{
-	log("-----ENGINE SETUP-----");
-	ifstream yukle;
-	string t;
-	log("Music Script name:");
-	get(t);
-	yukle.open(t + ".fcescript");
-	yukle >> t;
-	yukle.close();
-	if (t == "music")
-	{
-		yukle >> t;
-		if (t != "null")
-		{
-			s.init(t);
-			s.play();
-		}
-		
-	}
-	else
-	{
-		log("ERROR: Script is not an Music script!");
-	}
-
-	/*log("Background Script name:"); //removed !
-	get(t);
-	yukle.open(t + ".fcescript");
-	yukle >> t;
-	
-	if (t == "background")
-	{
-		yukle >> newobject.fname;
-		if (newobject.fname != "null")
-		{
-			newobject.objectrect.x = 0;
-			newobject.objectrect.y = 0;
-			newobject.objectrect.w = 1024;
-			newobject.objectrect.h = 700;
-			newobject.init(true, false, sr, true);
-		}
-
-	}
-	else
-	{
-		log("ERROR: Script is not an Background script!");
-	}*/
 }
 
 Engine::Engine()
@@ -732,9 +653,32 @@ bool Engine::render()
 	SDL_RenderPresent(sr);
 
 
-	return true;
+	return false;
 }
 
+bool Engine::handleevent()
+{
+
+	/*SDL_PollEvent(&se);
+	switch (se.type)
+	{
+	case SDL_QUIT:
+	{
+
+		eisrunning = false;
+	}
+	break;
+	case SDLK_c:
+	{
+		return true;
+
+	}
+	break;
+	default:
+		break;
+	}*/
+	return true;
+}
 
 
 
